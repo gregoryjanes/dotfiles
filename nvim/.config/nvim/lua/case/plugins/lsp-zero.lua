@@ -105,8 +105,8 @@ return {
             local lua_opts = lsp_zero.nvim_lua_ls()
             require('lspconfig').lua_ls.setup(lua_opts)
           end,
-          tsserver = function()
-            require('lspconfig').tsserver.setup({
+          ts_ls = function()
+            require('lspconfig').ts_ls.setup({
               on_attach = function(client, bufnr)
                 -- Add any specific settings for tsserver here
                 lsp_zero.default_keymaps({buffer = bufnr})
