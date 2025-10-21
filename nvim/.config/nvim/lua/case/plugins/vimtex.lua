@@ -5,7 +5,7 @@ return {
   lazy = false,
   init = function()
     -- Set your PDF viewer (e.g., "skim", "zathura", "okular")
-    vim.g.vimtex_view_method = "skim"
+    vim.g.vimtex_view_method = "mupdf"
 
     -- Set the main compiler to latexmk
     vim.g.vimtex_compiler_method = "latexmk"
