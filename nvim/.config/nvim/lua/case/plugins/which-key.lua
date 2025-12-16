@@ -2,7 +2,7 @@
 
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  --event = "VeryLazy",
   dependencies = {
     'echasnovski/mini.nvim',
   },
@@ -85,13 +85,15 @@ return {
     -- This keeps your keybindings organized and context-aware.
     -- =========================================================================
 
+
     -- LaTeX / VimTeX Keymaps
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "tex", "latex", "bib" }, -- Trigger on these file types
       callback = function()
-        -- These mappings are created ONLY when you open a file matching the pattern above.
+        -- These mappings are created ONLY when you open a file matching the pattern.
+        -- Using `buffer = 0` makes them buffer-local.
         wk.add({
-          buffer = 0, -- Apply these keymaps only to the current buffer
+          buffer = 0,
           { "<leader>l", group = "LaTeX (VimTeX)", icon = "󰙩" },
           { "<leader>lc", "<cmd>VimtexCompile<CR>", desc = "Compile", icon = "󰖷" },
           { "<leader>lv", "<cmd>VimtexView<CR>", desc = "View PDF", icon = "󰛓" },
@@ -113,7 +115,7 @@ return {
         })
       end,
     })
-
+    
     -- Add more autocommands here for other filetypes like markdown, lua, etc.
   end,
 }
