@@ -51,3 +51,6 @@ __pycache__/
 tmp/
 *.tmp
 *.temp
+
+claude/*
+.claude/*
