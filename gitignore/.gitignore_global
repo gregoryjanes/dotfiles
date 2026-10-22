@@ -1,0 +1,6 @@
+# To use, type $git config --global core.excludesfile ~/.gitignore_global
+
+CLAUDE.md
+.claude/
+
+
