@@ -7,9 +7,9 @@ from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, add_timer
 from kitty.tab_bar import DrawData, ExtraData, TabAccessor, TabBarData, as_rgb, draw_tab_with_separator
 
-# sky from the wallpaper (desolate_yellow color7)
-CLOCK_FG = as_rgb(0x1c2220)
-CLOCK_BG = as_rgb(0xc8d1bb)
+# everforest fg on bg2
+CLOCK_FG = as_rgb(0xd3c6aa)
+CLOCK_BG = as_rgb(0x374145)
 AUTOSAVE_PATH = os.path.expanduser('~/.local/share/kitty/autosave.kitty-session')
 AUTOSAVE_INTERVAL = 15 * 60
 
