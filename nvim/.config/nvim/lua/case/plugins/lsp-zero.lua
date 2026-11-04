@@ -43,7 +43,25 @@ return {
       local cmp = require('cmp')
       local cmp_action = lsp_zero.cmp_action()
 
+      require("luasnip").config.setup({ enable_autosnippets = true })
       require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_lua").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+      -- autopairs steps over its own `}` without changing text, so `\begin{equation}` never
+      -- fires TextChangedI. Re-check autosnippets on cursor move too, skipping the move
+      -- caused by entering insert mode (so `A` on an existing \begin{..} line doesn't re-expand).
+      -- ponytail: still fires if you arrow-key to the end of an existing \begin{..} line in insert mode
+      local just_entered = false
+      vim.api.nvim_create_autocmd("InsertEnter", {
+        pattern = "*.tex",
+        callback = function() just_entered = true end,
+      })
+      vim.api.nvim_create_autocmd("CursorMovedI", {
+        pattern = "*.tex",
+        callback = function()
+          if just_entered then just_entered = false return end
+          require("luasnip").expand_auto()
+        end,
+      })
 
       cmp.setup({
         formatting = lsp_zero.cmp_format({details = true}),
@@ -90,30 +108,26 @@ return {
         lsp_zero.default_keymaps({buffer = bufnr})
       end)
 
-      require('mason-lspconfig').setup({
-        ensure_installed = {'ts_ls'},  -- Ensure tsserver is installed 
-        handlers = {
-          -- this first function is the "default handler"
-          -- it applies to every language server without a "custom handler"
-          function(server_name)
-            require('lspconfig')[server_name].setup({})
-          end,
+      -- mason-lspconfig v2 calls vim.lsp.enable() on every installed server,
+      -- so per-server tweaks go through vim.lsp.config() (Neovim 0.11+).
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      })
 
-          -- this is the "custom handler" for `lua_ls`
-          lua_ls = function()
-            -- (Optional) Configure lua language server for neovim
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-          end,
-          ts_ls = function()
-            require('lspconfig').ts_ls.setup({
-              on_attach = function(client, bufnr)
-                -- Add any specific settings for tsserver here
-                lsp_zero.default_keymaps({buffer = bufnr})
-              end,
-            })
-          end,
-        }
+      -- Python: use the active venv, else <project root>/.venv, else whatever `python` is on PATH
+      vim.lsp.config('pyright', {
+        before_init = function(_, config)
+          local venv = vim.env.VIRTUAL_ENV or (config.root_dir and config.root_dir .. '/.venv')
+          if venv and vim.fn.executable(venv .. '/bin/python') == 1 then
+            config.settings.python = config.settings.python or {}
+            config.settings.python.pythonPath = venv .. '/bin/python'
+          end
+        end,
+      })
+
+      -- LaTeX: texlab completes \cite{} keys from your .bib files, \ref{} labels, and environments
+      require('mason-lspconfig').setup({
+        ensure_installed = { 'ts_ls', 'pyright', 'texlab' },
       })
     end
   }

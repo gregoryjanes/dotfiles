@@ -26,5 +26,8 @@ return {
     }
     
     vim.g.vimtex_clean_patterns = { "*-blx.bib", "_minted*" }
+
+    -- Indent by plain 4-space steps; don't shift align/tabular rows to line up on `&`
+    vim.g.vimtex_indent_on_ampersands = 0
   end,
 }

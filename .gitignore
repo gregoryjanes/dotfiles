@@ -54,3 +54,7 @@ tmp/
 
 claude/*
 .claude/*
+
+tmux/.config/tmux/plugins/
+nvim/.config/nvim/lazy/
+ohmyzsh/
