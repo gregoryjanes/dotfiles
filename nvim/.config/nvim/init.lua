@@ -18,7 +18,7 @@ require("lazy").setup("case.plugins")
 
 vim.o.background = "dark" -- or "light" for light mode
 vim.opt.termguicolors = true -- exact theme hex colors, same as kitty's
-vim.cmd.colorscheme("everforest")
+vim.cmd.colorscheme("interlinked")
 
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.number = true

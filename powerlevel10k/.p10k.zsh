@@ -1738,8 +1738,8 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
 
-# Everforest prompt bar: one grey bar a few shades lighter than the terminal (#272e33),
+# Interlinked prompt bar: one steel bar a few shades lighter than the terminal (#0e141a),
 # colored text only. Change the background here to make it more or less subtle.
-typeset -g POWERLEVEL9K_BACKGROUND='#414b50'
-typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#d3c6aa'   # last path part a touch brighter
-typeset -g POWERLEVEL9K_CONTEXT_{,ROOT_,REMOTE_,REMOTE_SUDO_,SUDO_}FOREGROUND='#9da9a0'
+typeset -g POWERLEVEL9K_BACKGROUND='#1d2a38'
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#d0dae2'   # last path part a touch brighter
+typeset -g POWERLEVEL9K_CONTEXT_{,ROOT_,REMOTE_,REMOTE_SUDO_,SUDO_}FOREGROUND='#8292a0'
