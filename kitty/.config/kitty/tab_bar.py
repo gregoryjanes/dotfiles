@@ -7,9 +7,9 @@ from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, add_timer
 from kitty.tab_bar import DrawData, ExtraData, TabAccessor, TabBarData, as_rgb, draw_tab_with_separator
 
-# everforest fg on bg2
-CLOCK_FG = as_rgb(0xd3c6aa)
-CLOCK_BG = as_rgb(0x374145)
+# interlinked fg on bg_visual
+CLOCK_FG = as_rgb(0xb6c2cc)
+CLOCK_BG = as_rgb(0x1d2a38)
 AUTOSAVE_PATH = os.path.expanduser('~/.local/share/kitty/autosave.kitty-session')
 AUTOSAVE_INTERVAL = 15 * 60
 
